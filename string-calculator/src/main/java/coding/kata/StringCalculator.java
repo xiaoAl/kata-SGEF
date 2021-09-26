@@ -2,9 +2,11 @@ package coding.kata;
 
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StringCalculator {
-    private final static String NEGATIVE_NOT_ALLOWED_EXCEPTION = "negatives not allowed";
+    private final static String NEGATIVE_NOT_ALLOWED_EXCEPTION = "negatives not allowed ";
     private final static String DEFAULT_SEPARATORS = ",|\n";
     private final static int NEW_SEPARATOR_DELIMITER_LENGTH = 4;
     private final static String NEW_SEPARATOR_REGEX = "^/{2}.*\n.*";
@@ -13,22 +15,29 @@ public class StringCalculator {
     public StringCalculator() {
     }
 
-    public int calculate(String stringValues) {
-        String[] stringNumberArray;
-
-        stringNumberArray = computeStringNumberArray(stringValues);
-
+    public int add(String stringValues) {
         if (stringValues.isEmpty()) {
             return 0;
         }
-
-        if (stringNumberArray.length > 1) {
-            return sum(stringNumberArray);
+        if (stringValues.length() == 1) {
+            return intValueFrom(stringValues);
         }
-        return intValueFrom(stringValues);
+        return sum(computeStringNumberArray(stringValues));
     }
 
     private String[] computeStringNumberArray(String stringValues) {
+        String[] stringNumberArray = getStringNumberArray(stringValues);
+        checkForNegativeStringNumbers(stringNumberArray);
+        return stringNumberArray;
+    }
+
+    private void checkForNegativeStringNumbers(String[] stringNumberArray) {
+        List<String> negativeStringNumberList = Arrays.stream(stringNumberArray)
+                .filter(stringNumber -> stringNumber.contains("-")).collect(Collectors.toList());
+        throwExceptionIfNotEmpty(negativeStringNumberList);
+    }
+
+    private String[] getStringNumberArray(String stringValues) {
         String[] stringNumberArray;
         if (stringValues.matches(NEW_SEPARATOR_REGEX)) {
             String newSeparator = extractNewSeparatorFrom(stringValues);
@@ -37,13 +46,13 @@ public class StringCalculator {
         } else {
             stringNumberArray = stringValues.split(DEFAULT_SEPARATORS);
         }
-        Arrays.stream(stringNumberArray).forEach(stringNumber -> checkNumber(stringNumber));
         return stringNumberArray;
     }
 
-    private void checkNumber(String stringNumber) {
-        if(stringNumber.contains("-")) {
-            throw new IllegalArgumentException(NEGATIVE_NOT_ALLOWED_EXCEPTION);
+    private void throwExceptionIfNotEmpty(List<String> stringNumberList) {
+        if (!stringNumberList.isEmpty()) {
+            String customException = NEGATIVE_NOT_ALLOWED_EXCEPTION + stringNumberList.stream().collect(Collectors.joining(" "));
+            throw new IllegalArgumentException(customException);
         }
     }
 

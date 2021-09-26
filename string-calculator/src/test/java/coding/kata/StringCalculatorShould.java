@@ -20,52 +20,52 @@ public class StringCalculatorShould {
 
     @Test
     public void return_0_when_empty_string_is_provided() {
-        assertEquals(calculator.calculate(""), 0);
+        assertEquals(calculator.add(""), 0);
     }
 
     @Test
     public void return_1_when_1_is_provided_as_string() {
-        assertEquals(calculator.calculate("1"), 1);
+        assertEquals(calculator.add("1"), 1);
     }
 
     @Test
     public void return_2_when_2_is_provided_as_string() {
-        assertEquals(calculator.calculate("2"), 2);
+        assertEquals(calculator.add("2"), 2);
     }
 
     @Test
     public void return_2_when_1_comma_1_is_provided_as_string() {
-        assertEquals(calculator.calculate("1,1"), 2);
+        assertEquals(calculator.add("1,1"), 2);
     }
 
     @Test
     public void return_3_when_1_comma_2_is_provided_as_string() {
-        assertEquals(calculator.calculate("1,2"), 3);
+        assertEquals(calculator.add("1,2"), 3);
     }
 
     @Test
     public void return_3_when_1_comma_1_comma_1_is_provided_as_string() {
-        assertEquals(calculator.calculate("1,1,1"), 3);
+        assertEquals(calculator.add("1,1,1"), 3);
     }
 
     @Test
     public void return_3_when_1_new_line_2_is_provided_as_string() {
-        assertEquals(calculator.calculate("1\n2"), 3);
+        assertEquals(calculator.add("1\n2"), 3);
     }
 
     @Test
     public void return_3_when_1_new_line_1_comma_1_is_provided_as_string() {
-        assertEquals(calculator.calculate("1\n1,1"), 3);
+        assertEquals(calculator.add("1\n1,1"), 3);
     }
 
     @Test
     public void return_3_using_the_new_delimiter_semicolon_when_1_semicolon_2_is_provided_as_string() {
-        assertEquals(calculator.calculate("//;\n1;2"), 3);
+        assertEquals(calculator.add("//;\n1;2"), 3);
     }
 
     @Test
     public void return_3_using_the_new_delimiter_TTT_when_1_TTT_2_is_provided_as_string() {
-        assertEquals(calculator.calculate("//TTT\n1TTT2"), 3);
+        assertEquals(calculator.add("//TTT\n1TTT2"), 3);
     }
 
     @Test
@@ -73,8 +73,18 @@ public class StringCalculatorShould {
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-                    calculator.calculate("1,-2");
+                    calculator.add("1,-2");
                 });
-        assertEquals("negatives not allowed", exception.getMessage());
+        assertEquals("negatives not allowed -2", exception.getMessage());
+    }
+
+    @Test
+    public void throw_an_exception_when_two_negative_values_are_added() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    calculator.add("-1,-2");
+                });
+        assertEquals("negatives not allowed -1 -2", exception.getMessage());
     }
 }
