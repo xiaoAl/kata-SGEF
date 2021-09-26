@@ -50,4 +50,9 @@ public class StringCalculatorShould {
     public void return_3_when_1_new_line_2_is_provided_as_string() {
         Assert.assertEquals(calculator.calculate("1\n2"), 3);
     }
+
+    @Test
+    public void return_3_when_1_new_line_1_comma_1_is_provided_as_string() {
+        Assert.assertEquals(calculator.calculate("1\n1,1"), 3);
+    }
 }
