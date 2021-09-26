@@ -4,16 +4,16 @@ package coding.kata;
 import java.util.Arrays;
 
 public class StringCalculator {
-
+    private final static String NEGATIVE_NOT_ALLOWED_EXCEPTION = "negatives not allowed";
     private final static String DEFAULT_SEPARATORS = ",|\n";
-
+    private final static int NEW_SEPARATOR_DELIMITER_LENGTH = 4;
     private final static String NEW_SEPARATOR_REGEX = "^/{2}.*\n.*";
+
 
     public StringCalculator() {
     }
 
     public int calculate(String stringValues) {
-
         String[] stringNumberArray;
 
         stringNumberArray = computeStringNumberArray(stringValues);
@@ -37,11 +37,18 @@ public class StringCalculator {
         } else {
             stringNumberArray = stringValues.split(DEFAULT_SEPARATORS);
         }
+        Arrays.stream(stringNumberArray).forEach(stringNumber -> checkNumber(stringNumber));
         return stringNumberArray;
     }
 
+    private void checkNumber(String stringNumber) {
+        if(stringNumber.contains("-")) {
+            throw new IllegalArgumentException(NEGATIVE_NOT_ALLOWED_EXCEPTION);
+        }
+    }
+
     private String extractStringNumberFrom(String stringNumbers, String newSeparator) {
-        return stringNumbers.substring(newSeparator.length() + 4 - 1);
+        return stringNumbers.substring(newSeparator.length() + NEW_SEPARATOR_DELIMITER_LENGTH - 1);
     }
 
     private String extractNewSeparatorFrom(String stringNumbers) {
