@@ -1,6 +1,8 @@
 package coding.kata;
 
 
+import java.util.Arrays;
+
 public class StringCalculator {
 
     private final static String COMMA_SEPARATOR = ",";
@@ -9,17 +11,21 @@ public class StringCalculator {
     }
 
     public int calculate(String stringNumbers) {
-        String[] stringNumberTable = stringNumbers.split(COMMA_SEPARATOR);
+        String[] stringNumberArray = stringNumbers.split(COMMA_SEPARATOR);
         if (stringNumbers.isEmpty()) {
             return 0;
         }
-        if (stringNumberTable.length > 1) { // j'aurai pu mettre ici == 2, au moins au début
-            return from(stringNumberTable[0]) + from(stringNumberTable[1]);
+        if (stringNumberArray.length > 1) {
+            return sum(stringNumberArray);
         }
-        return from(stringNumbers);
+        return intValueFrom(stringNumbers);
     }
 
-    private int from(String stringValue) {
+    private int sum(String[] stringNumberArray) {
+        return Arrays.stream(stringNumberArray).map(this::intValueFrom).reduce(0, Integer::sum);
+    }
+
+    private int intValueFrom(String stringValue) {
         return Integer.parseInt(stringValue);
     }
 }

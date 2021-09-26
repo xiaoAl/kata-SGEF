@@ -40,4 +40,9 @@ public class StringCalculatorShould {
     public void return_3_when_1_comma_2_is_provided_as_string() {
         Assert.assertEquals(calculator.calculate("1,2"), 3);
     }
+
+    @Test
+    public void return_3_when_1_comma_1_comma_1_is_provided_as_string() {
+        Assert.assertEquals(calculator.calculate("1,1,1"), 3);
+    }
 }
