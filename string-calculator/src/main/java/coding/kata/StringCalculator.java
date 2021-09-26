@@ -3,17 +3,23 @@ package coding.kata;
 
 public class StringCalculator {
 
+    private final static String COMMA_SEPARATOR = ",";
+
     public StringCalculator() {
     }
 
-    public int calculate(String numbers) {
-        String[] numberTable = numbers.split(",");
-        if (numbers.isEmpty()) {
+    public int calculate(String stringNumbers) {
+        String[] stringNumberTable = stringNumbers.split(COMMA_SEPARATOR);
+        if (stringNumbers.isEmpty()) {
             return 0;
         }
-        if (numberTable.length > 1) { // j'aurai pu mettre ici == 2, au moins au début
-            return Integer.parseInt(numberTable[0]) + Integer.parseInt(numberTable[1]);
+        if (stringNumberTable.length > 1) { // j'aurai pu mettre ici == 2, au moins au début
+            return from(stringNumberTable[0]) + from(stringNumberTable[1]);
         }
-        return Integer.parseInt(numbers);
+        return from(stringNumbers);
+    }
+
+    private int from(String stringValue) {
+        return Integer.parseInt(stringValue);
     }
 }
