@@ -12,8 +12,14 @@ import sun.awt.geom.AreaOp;
 public class StringCalculatorShould {
 
     @Test
-    public void return_zero_when_empty_string_is_provided() {
+    public void return_0_when_empty_string_is_provided() {
         StringCalculator calculator = new StringCalculator();
         Assert.assertEquals(calculator.calculate(""), 0);
+    }
+
+    @Test
+    public void return_1_when_1_is_provided_as_string() {
+        StringCalculator calculator = new StringCalculator();
+        Assert.assertEquals(calculator.calculate("1"), 1);
     }
 }
