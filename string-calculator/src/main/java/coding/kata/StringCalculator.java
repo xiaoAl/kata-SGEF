@@ -11,8 +11,8 @@ public class StringCalculator {
         if (numbers.isEmpty()) {
             return 0;
         }
-        if (numberTable.length > 1) {
-            return 2;
+        if (numberTable.length > 1) { // j'aurai pu mettre ici == 2, au moins au début
+            return Integer.parseInt(numberTable[0]) + Integer.parseInt(numberTable[1]);
         }
         return Integer.parseInt(numbers);
     }
