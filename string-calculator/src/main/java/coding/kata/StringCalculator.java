@@ -5,13 +5,13 @@ import java.util.Arrays;
 
 public class StringCalculator {
 
-    private final static String COMMA_SEPARATOR = ",";
+    private final static String SEPARATORS = ",|\n";
 
     public StringCalculator() {
     }
 
     public int calculate(String stringNumbers) {
-        String[] stringNumberArray = stringNumbers.split(COMMA_SEPARATOR);
+        String[] stringNumberArray = stringNumbers.split(SEPARATORS);
         if (stringNumbers.isEmpty()) {
             return 0;
         }
