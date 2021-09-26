@@ -55,4 +55,9 @@ public class StringCalculatorShould {
     public void return_3_when_1_new_line_1_comma_1_is_provided_as_string() {
         Assert.assertEquals(calculator.calculate("1\n1,1"), 3);
     }
+
+    @Test
+    public void return_3_using_the_new_delimiter_semicolon_when_1_semicolon_2_is_provided_as_string() {
+        Assert.assertEquals(calculator.calculate("//;\n1;2"), 3);
+    }
 }

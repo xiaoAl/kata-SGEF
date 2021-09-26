@@ -11,10 +11,21 @@ public class StringCalculator {
     }
 
     public int calculate(String stringNumbers) {
-        String[] stringNumberArray = stringNumbers.split(SEPARATORS);
+
+        String[] stringNumberArray;
+
+        if (stringNumbers.matches("^/{2}.\n.*")) {
+            String newSeparator = stringNumbers.split("\n")[0].split("//")[1];
+            String newStringNumber = stringNumbers.substring(newSeparator.length() + 4 - 1);
+            stringNumberArray = newStringNumber.split(newSeparator);
+        } else {
+            stringNumberArray = stringNumbers.split(SEPARATORS);
+        }
+
         if (stringNumbers.isEmpty()) {
             return 0;
         }
+
         if (stringNumberArray.length > 1) {
             return sum(stringNumberArray);
         }
